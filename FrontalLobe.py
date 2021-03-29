@@ -1,6 +1,76 @@
 import numpy as np
 import tabulate
 
+class rolledVector:
+
+	def __init__(self,zeroIndexed = False):
+		self.vector = []
+		self.shapeData = []
+		self.size = 0
+		self.indexType = 0 if zeroIndexed == True else 1
+
+
+	def addMatrix(self,matrix):
+		self.shapeData.append(matrix.shape)
+		self.vector.append(matrix.reshape(1,matrix.size)[0])
+		self.size += matrix.size
+
+	def __getitem__(self,index):
+		if type(index) in [int,tuple] :
+			if type(index) == int :
+				try:
+					return self.vector[index - self.indexType].reshape(self.shapeData[index-self.indexType])
+				except IndexError :
+					raise IndexError("rolledVector index out of range") from None
+			else:
+				if len(index) == 1:
+					return self.__getitem__(index[0])
+				if len(index) == 2:
+					return self.__getitem__(index[0])[index[1]]
+				if len(index) == 3:
+					return self.__getitem__(index[:2])[index[2]]
+				if len(index) > 3:
+					raise IndexError("rolledVector index out of range") from None
+		else:
+			raise TypeError("rolledVector indices must be int or tuple") from None
+
+	def update(self,updateValue):
+		if type(updateValue) in [list,np.ndarray] :
+			if type(updateValue) == list:
+				updateValue = np.array(updateValue)
+				if updateValue.ndim == 1:
+					if updateValue.size == self.size :
+						temp,i = [],0
+						for j,k in self.shapeData:
+							temp.append(updateValue[i:i+(j*k)])
+							i += j*k
+						self.vector = temp
+					else:
+						raise ValueError(f"could not broadcast input rolledVector.vector from size {self.size} into len {updateValue.size}") from None
+				else:
+					raise TypeError("update value must be a single dimensional list or (2 or 1 dimensional) nump.ndarray ") from None
+			else:
+				if updateValue.ndim in [2,1]:	
+					if updateValue.size == self.size :
+						if updateValue.ndim == 2:
+							self.layer =  list(updateValue)
+						else:
+							temp,i = [],0
+							for j,k in self.shapeData:
+								temp.append(updateValue[i:i+(j*k)])
+								i += j*k
+							self.layer = temp
+					else:
+						raise ValueError(f"could not broadcast input rolledVector.vector from size {self.size} into len {updateValue.size}") from None
+				else:
+					raise TypeError("update value must be a single dimensional list or (2 or 1 dimensional) nump.ndarray ") from None
+
+		else:
+			raise TypeError("update value must be a single dimensional list or (2 or 1 dimensional) nump.ndarray ") from None
+
+
+
+
 class NueronLayer:
 
 	def __init__(self,width,includeBias=True):
@@ -39,14 +109,19 @@ class NueralNetwork:
 	def __init__(self,architecture):
 		self.architecture = []
 		for layerData in architecture :
-			if type(layerData) == int :
-				includeBias = True
-				self.architecture.append(NueronLayer(layerData,includeBias))
-			if type(layerData) == tuple:
-				includeBias = layerData[1]
-				self.architecture.append(NueronLayer(layerData[0],includeBias))
-			if type(layerData) == NueronLayer :
-				self.architecture.append(layerData)
+			if type(layerData) in [int,tuple,NueronLayer] :
+				if type(layerData) == int :
+					includeBias = True
+					self.architecture.append(NueronLayer(layerData,includeBias))
+				if type(layerData) == tuple:
+					includeBias = layerData[1]
+					self.architecture.append(NueronLayer(layerData[0],includeBias))
+				if type(layerData) == NueronLayer :
+					self.architecture.append(layerData)
+			else:
+				raise TypeError("argument \'architecture\' must ony contain data of type <class int> , <class tuple> or <class NueronLayer>")
+		self.thetaVec = rolledVector()
+		self.Dvec = rolledVector()
 
 	def __repr__(self):
 		return f"FrontalLobe.NueralNetwork(architecture={self.architecture.__repr__()})"
@@ -71,40 +146,57 @@ class NueralNetwork:
 
 	def __getitem__(self,pos):
 		try:
-			(layerNumber,unitNumer) = pos
+			(layerNumber,unitNumber) = pos
 		except TypeError:
 			layerNumber = pos
-			unitNumer=None
-		if unitNumer == None:
+			unitNumber=None
+		if unitNumber == None:
 			try:
 				return self.architecture[layerNumber].layer
 			except IndexError:
 				raise IndexError("layer index out of range") from None
 		try:
-			return self.architecture[layerNumber][unitNumer]
+			return self.architecture[layerNumber][unitNumber]
 		except IndexError:
 			raise IndexError("layer index out of range") from None
 
 	def __setitem__(self,pos,value):
 		try:
-			layer = self.architecture[pos[0]]
-		except IndexError:
-			raise IndexError("layer index out of range") from None
-		layer[pos[1]] = value
+			(layerNumber,unitNumber) = pos
+		except TypeError:
+			layerNumber = pos
+			unitNumber = None
+		if unitNumber == None:
+			try:
+				if type(value) in [str,int,float]:
+					raise ValueError("layer can be of type \'numpy.ndarray\' or \'list\' only!") from None
+				else:
+					if type(value) == list:
+						for i in value:
+							if type(i) in [list,np.ndarray]:
+								raise ValueError("layer can not multi dimensional list")
+							if type(i) == str :
+								raise ValueError("layer can not contain values of <class str>")
+						if len(value) != self.__getitem__(layerNumber).size :
+							raise ValueError(f"could not broadcast input list from len {len(value)} into shape {self.__getitem__(layerNumber).shape}") from None
+						else:
+							value = np.array(value).reshape(self.__getitem__(layerNumber).shape)
+							self.architecture[layerNumber].layer = value
+					if type(value) == np.ndarray:
+						if value.shape != self.__getitem__(layerNumber).shape:
+							raise ValueError(f"could not broadcast input array from shape {self.__getitem__(layerNumber).shape} into shape {self.__getitem__(layerNumber).shape}") from None
+						else:
+							self.architecture[layerNumber].layer = value
+			except IndexError:
+				raise IndexError("layer index out of range") from None
+		else:
+			layer = self.__getitem__(layerNumber)
+			try:
+				layer[unitNumber] = value
+			except IndexError:
+				raise IndexError("unit index out of range") from None
 
 
 
-		# retStr = ""
-		# for i in range(temp.shape[0]):
-		# 	tempStr = ""
-		# 	for j in range(temp.shape[1]):
-		# 		tempStr += (" "*3 if temp[i][j] == None else f"{temp[i][j]:4.6}") + " "
-		# 	tempStr +="\n"
-		# 	retStr += tempStr
-		#print(np.array_str(temp, precision=2))
-
-
-
-#print ("\033[A                             \033[A",end="" )
 
 
