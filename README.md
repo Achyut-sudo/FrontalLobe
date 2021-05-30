@@ -11,4 +11,30 @@ time display of change in activation values of the component nuerons in the Nuer
 
 ![](https://github.com/Achyut-sudo/FrontalLobe/blob/main/nn.gif)
 
+## Requirements 
+
+python > 3.6
+
+## Installation
+
+pip install FrontalLobe
+
+## URLs
+
+The url address of detailed explaination and features of component classes of this library are given below:
+
+NueralNetwork : <LINK>
+
+confusionMatrix : <link>
+
+NueronLayer : <link>
+
+rolledVector : <link>
+
+skeletonRolledVector : <link>
+
+
+
+
+
 
