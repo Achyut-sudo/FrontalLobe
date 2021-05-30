@@ -6,7 +6,7 @@ Currently, it only includes a class to implement Artificial Nueral Networks and 
 and validation named 'NueralNetwork' and 'confusionMatrix' respectively. It also include three other suppport classes namely
 'NueronLayer', 'rolledVector' and its subclass 'skeletonRolledVector' for smooth and fast working of the 'NueralNetwork' class.
 
-This library also contains a special feature of real
+This is library also contains a special feature of real
 time display of change in activation values of the component nuerons in the Nueral Network object while training, so that the user can understand the source of any numerical errors and also because it looks cool!
 
 ![](https://github.com/Achyut-sudo/FrontalLobe/blob/main/nn.gif)
@@ -23,15 +23,15 @@ pip install FrontalLobe
 
 The url address of detailed explaination and features of component classes of this library are given below:
 
-NueralNetwork : <LINK>
+[NueralNetwork](https://github.com/Achyut-sudo/FrontalLobe/blob/main/NueralNetwork.md)
 
-confusionMatrix : <link>
+[confusionMatrix](https://github.com/Achyut-sudo/FrontalLobe/blob/main/confusionMatrix.md)
 
-NueronLayer : <link>
+[NueronLayer](https://github.com/Achyut-sudo/FrontalLobe/blob/main/NueronLayer.md)
 
-rolledVector : <link>
+[rolledVector](https://github.com/Achyut-sudo/FrontalLobe/blob/main/rolledVector.md)
 
-skeletonRolledVector : <link>
+[skeletonRolledVector](https://github.com/Achyut-sudo/FrontalLobe/blob/main/skeletonRolledVector.md)
 
 
 
