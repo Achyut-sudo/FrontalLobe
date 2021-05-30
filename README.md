@@ -11,6 +11,8 @@ time display of change in activation values of the component nuerons in the Nuer
 
 ![](https://github.com/Achyut-sudo/FrontalLobe/blob/main/nn.gif)
 
+Although there are lots of much more advanced and suitable frameworks developed by experts in field of machine learning and deep learning, I created this library to test and show my capabilities in python and my understanding of inner workings of ANN. In near future I aim to include more ml techniques and make this library much more advanced.  
+
 ## Requirements 
 
 python > 3.6
