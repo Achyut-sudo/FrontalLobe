@@ -21,6 +21,10 @@ python > 3.6
 
 pip install FrontalLobe
 
+## Version
+
+0.0.1
+
 ## URLs
 
 The url address of detailed explaination and features of component classes of this library are given below:
