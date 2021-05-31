@@ -23,7 +23,7 @@ A NueralNetwork object requires atmost 4 parameters (1 mandatory, 3 optional ) d
     - the list for parameter 'architecture' can also be empty! but before training, new layers must be added using 'append' method of the NueralNetwork 'class-entropy cost' of the NueralNetwork object as it may hinder
         
         
-- HLAF : 'Hidden Layer Activation Function'
+- HLAF : 'Hidden Layer Activation Function', activation function for forward propagation in hidden layers 
     - the values for parameter 'HLAF' can be :
         - int : supported int values for parmeter 'HLAF' are :
             - 1 for sigmoid activation function
@@ -31,14 +31,40 @@ A NueralNetwork object requires atmost 4 parameters (1 mandatory, 3 optional ) d
             - 3 for tanH activation function
             - 4 for linear activation function
         - str : supported str values for parameter 'OLAF' are :
-            
+            - 'sigmoid; for sigmoid activation function
+            - 'ReLU' for ReLu activation Function
+            - 'tanH' for tanH activation function
+            - 'linear' for linear activation function
+        - default value : 'sigmoid'
 
-- OLAF : 'Output Layer Activation Function'
+- OLAF : 'Output Layer Activation Function', activation function for forward propagation to ouput layers
     - the values for parameter 'HLAF' can be :
-        - int :
-        - str :
+        - int : supported int values for parmeter 'HLAF' are :
+            - 1 for sigmoid activation function
+            - 2 for tanH activation function
+        - str : supported str values for parameter 'OLAF' are :
+            - 'sigmoid; for sigmoid activation function
+            - 'tanH' for tanH activation function
+        - default value : 'sigmoid'
 
 - precision : number of decimal digits in the activation value of the nuerons and also for other internal calculation, except the 'cost' of the NueralNetwork object as restricting cost to a certain number of decimal may lead to a stationary cost and eventually hinder with workings of the gradient descent algorithm
+
+
+
+```
+>>> nn = FrontalLobe.NueralNetwork([4,(3,True),FrontalLobe.NueronLayer(3),FrontalLobe.NueronLayer(3,False),(2,False)])
+>>> print(nn)
+input Layer    hiddenLayer 1    hiddenLayer 2    hiddenLayer 3    output Layer
+-------------  ---------------  ---------------  ---------------  --------------
+1.0
+               1.0              1.0              0.0
+0.0                                                               0.0
+               0.0              0.0              0.0
+0.0                                                               0.0
+               0.0              0.0              0.0
+0.0
+>>>
+```
 
 
 ## Features
