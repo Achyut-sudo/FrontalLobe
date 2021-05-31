@@ -7,7 +7,7 @@ A class of 'FrontalLobe' library to create and train a Artificial Nueral Network
 
 ## Initialization 
 
-A NueralNetwork obj requires atmost 4 parameters (1 mandatory, 3 optional ) during initialization, they are :
+A NueralNetwork object requires atmost 4 parameters (1 mandatory, 3 optional ) during initialization, they are :
 
 - architecture : list containing details of layers or layer themselves of the NueralNetwork object (mandatory)
 
