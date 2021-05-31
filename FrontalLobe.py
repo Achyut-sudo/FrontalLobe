@@ -1973,19 +1973,7 @@ class NueronLayer:
 				self.__setitem__(i,round(self.__getitem__(i),precision))
 
 class NueralNetwork:
-	"""
-	class for NueralNetwork classifier obj
-
-	Features
-	--------
-	-> prints whole network when passed to python's print function
-	-> supports nueron access
-	-> supports nueron assignment
-	-> 
-
-
-	"""
-
+	
 	def __init__(self,architecture,HLAF="sigmoid",OLAF= "sigmoid",precision = 4):
 		"""[summary]
 
@@ -2017,7 +2005,7 @@ class NueralNetwork:
 			if type of parameter 'architecture' is other than int or list
 		TypeError
 			if atleat one of the member of the parameter 'architecture' is 
-			not opf type tuple, int or a NueronLayer obj
+			not of type tuple, int or a NueronLayer obj
 		TypeError
 			if parameter 'precision' is not of type int
 		ValueError
@@ -2028,8 +2016,8 @@ class NueralNetwork:
 
 		"""
 		self.architecture = []
-		if type(architecture) not in [int, list] :
-			raise TypeError("argument 'architecture' must be int or list")
+		if type(architecture) not in [int, list,NueronLayer] :
+			raise TypeError("argument 'architecture' must be int, list or NueronLayer object")
 		architecture = [architecture] if type(architecture) == int else architecture
 		for layerData in architecture :
 			if type(layerData) in [int,tuple,NueronLayer] :
@@ -2059,7 +2047,8 @@ class NueralNetwork:
 		self.HLAF = self.activationFuncs[AAFA.index(HLAF)] if type(HLAF) == str else self.activationFuncs[HLAF - 1] 
 		self.OLAF = (self.sigmoid if OLAF == "sigmoid" else self.tanH) if type(OLAF) == str else [self.sigmoid,self.tanH][OLAF - 1]
 		self.X,self.Y,self.XTest,self.YTest,self.trainingSize = None,None,None,None,None
-		self.width,self.depth = self.getDim()
+		if len(self.architecture) >= 1:
+			self.width,self.depth = self.getDim() 
 		self.cost,self.__preTrained,self.classes = None,False,None
 
 	def __repr__(self):
@@ -2067,6 +2056,10 @@ class NueralNetwork:
 
 	def toString(self,printUnderline = True):
 		"""return string representation of NueralNetwork obj
+
+		returns string representation only if the number if 
+		the NueralNetwork obj contains atleast one layer 
+		otherwise return None
 
 		Parameters
 		----------
@@ -2081,19 +2074,22 @@ class NueralNetwork:
 			string represeentation of NueralNetwork obj
 
 		"""
-		maxRows = max(self.architecture,key = lambda layer: layer.width).width
-		temp = [[" " for i in range(len(self.architecture))] for j in range((2*maxRows)-1)]
-		for j in range(len(temp[0])):
-			ind = maxRows - self.architecture[j].width
-			for i in self.__getitem__(j+1)[:,0]:
-				(temp[ind])[j] = i 
-				ind +=  2
-		table =  tabulate.tabulate(temp,headers=["input Layer"] + [f"hiddenLayer {i+1}" for i in range(len(temp[0]) - 2)] +["output Layer"])
-		if printUnderline == False :
-			temp2 = table.split("\n")
-			temp2.pop(1)
-			return "\n".join(temp2)
-		return table
+		if len(self.architecture) >= 1 :
+			maxRows = max(self.architecture,key = lambda layer: layer.width).width
+			temp = [[" " for i in range(len(self.architecture))] for j in range((2*maxRows)-1)]
+			for j in range(len(temp[0])):
+				ind = maxRows - self.architecture[j].width
+				for i in self.__getitem__(j+1)[:,0]:
+					(temp[ind])[j] = i 
+					ind +=  2
+			table =  tabulate.tabulate(temp,headers=["input Layer"] + [f"hiddenLayer {i+1}" for i in range(len(temp[0]) - 2)] +["output Layer"])
+			if printUnderline == False :
+				temp2 = table.split("\n")
+				temp2.pop(1)
+				return "\n".join(temp2)
+			return table
+		else:
+			return None
 
 	def __str__(self):
 		return self.toString()
