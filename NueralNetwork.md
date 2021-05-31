@@ -31,7 +31,7 @@ A NueralNetwork obj requires atmost 4 parameters (1 mandatory, 3 optional ) duri
             - 3 for tanH activation function
             - 4 for linear activation function
         - str : supported str values for parameter 'OLAF' are :
-            - 
+            
 
 - OLAF : 'Output Layer Activation Function'
     - the values for parameter 'HLAF' can be :
