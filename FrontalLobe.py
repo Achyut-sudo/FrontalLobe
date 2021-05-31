@@ -2018,7 +2018,7 @@ class NueralNetwork:
 		self.architecture = []
 		if type(architecture) not in [int, list,NueronLayer] :
 			raise TypeError("argument 'architecture' must be int, list or NueronLayer object")
-		architecture = [architecture] if type(architecture) == int else architecture
+		architecture = [architecture] if (type(architecture) == int or type(architecture) == NueronLayer) else architecture
 		for layerData in architecture :
 			if type(layerData) in [int,tuple,NueronLayer] :
 				if type(layerData) == int : 
@@ -2266,7 +2266,7 @@ class NueralNetwork:
 				else:
 					raise TypeError(f"tuple argument 'layerData' must only contain int and bool values")
 			self.width,self.depth = self.getDim()
-			if type(args[0]) not in [int ,NueronLayer,tuple] :
+			if type(layerData) not in [int ,NueronLayer,tuple] :
 				raise TypeError("append() takes exactly one tuple (int,bool)  or pair of int,bool or one NueronLayer") from None
 		else:
 			raise AttributeError("can not add new layer to a pre-trained NueralNetwork model")
