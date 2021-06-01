@@ -83,65 +83,227 @@ as in this version (0.0.1) all the attributes are supposed to be modified by the
 
 ## Methods
 
-- toString
-- layer
-- getDim
-- getTrainingStatus
-- append
-- pop
-- resetLayers
-- dump
-- [load](#load(fileName = str))
-- copy
-- setBiases
-- layerNormalization
-- getWeightShape
-- sigmoid
-- derivativeSigmoid
-- ReLU
-- derivativeReLU
-- tanH
-- derivativeTanH
-- linear
-- derivativelinear
-- predict
-- validate
-- labelExtractor
-- train
+- [toString](#toString)
+- [layer](#layer)
+- [getDim](#getDim)
+- [getTrainingStatus](#getTrainingStatus)
+- [append](#append)
+- [pop](#pop)
+- [resetLayers](#resetLayers)
+- [dump](#dump)
+- [load](#load)
+- [copy](#copy)
+- [setBiases](#setBiases)
+- [layerNormalization](#layerNormalization)
+- [getWeightShape](#getWeightShape)
+- [sigmoid](#sigmoid)
+- [derivativeSigmoid](#derivativeSigmoid)
+- [ReLU](#ReLU)
+- [derivativeReLU](#derivativeReLU)
+- [tanH](#tanH)
+- [derivativeTanH](#derivativeTanH)
+- [linear](#linear)
+- [derivativelinear](#derivativelinear)
+- [predict](#predict)
+- [validate](#validate)
+- [labelExtractor](#labelExtractor)
+- [train](#train)
 
 
 
-### Class Methods
+## Class Methods
+***
+## load
+loads locally saved images of NueralNetwork object (nueralNetwok objects can be saved locally using 'dump' method of NueralNetwork object)
 
-#### load(fileName = str)
-    loads locally saved images of NueralNetwork object (nueralNetwok objects can be saved locally using 'dump' method of NueralNetwork object)
-    parameters
+Parameters
 
-        fileName : str
-            name pf the file for the local image of the NueralNetwork obj, include the directory if the desired location of the file is same as current working directory
+- fileName : str
+        
+        name of the file for the local image of the NueralNetwork obj, include the directory if the desired location of the file is same as current working directory (do os.getcwd() to get current working directory)
 
-    Examples
+Examples
 ```
-    >>> import FrontalLobe
-    >>> nnCopy = nn.load("d:\\codes\\ml\\NueralNett\\nnCopy")
-    >>> print(nnCopy)
-    input Layer    hiddenLayer 1    hiddenLayer 2    output Layer
-    -------------  ---------------  ---------------  --------------
-    1.0
+>>> import FrontalLobe
+>>> nnCopy = nn.load("d:\\codes\\ml\\NueralNett\\nnCopy")
+>>> print(nnCopy)
+input Layer    hiddenLayer 1    hiddenLayer 2    output Layer
+-------------  ---------------  ---------------  --------------
+1.0
 
-    0.0            1.0              1.0              0.0
+0.0            1.0              1.0              0.0
 
-    0.0            0.0              0.0              0.0
+0.0            0.0              0.0              0.0
 
-    0.0            0.0              0.0              0.0
+0.0            0.0              0.0              0.0
 
-    0.0
-    >>> nnCopy.HLAF.__name__
-    'linear'
-    >>> nnCopy.OLAF.__name__
-    'sigmoid'
-    >>>
+0.0
+>>> nnCopy.HLAF.__name__
+'linear'
+>>> nnCopy.OLAF.__name__
+'sigmoid'
+>>>
+```
+***
+
+## Instance Methods
+***
+## toString
+
+returns string representation of the architecture and activation values of the component Nuerons in NueralNetwork obj, string representation can also be returned without the dashed underlines in layer headings by setting the boolean parameter 'preintUnderline' to False.
+
+Parameters 
+
+- printUnderline : bool
+
+        if True string representations  with dashed underline in the layer headings is passed otherwise string without the dashed undeline is returned, by default True
+
+Examples
+```
+>>> print(nn.toString())
+input Layer    hiddenLayer 1    hiddenLayer 2    output Layer
+-------------  ---------------  ---------------  --------------
+1.0
+
+1.0            1.0              1.0              0.31458
+
+0.340909       -0.362999        0.208062         0.332846
+
+0.613636       0.011057         0.666664         0.359032
+
+0.0
+>>> print(nn.toString(False))
+input Layer    hiddenLayer 1    hiddenLayer 2    output Layer
+1.0
+
+1.0            1.0              1.0              0.31458
+
+0.340909       -0.362999        0.208062         0.332846
+
+0.613636       0.011057         0.666664         0.359032
+
+0.0
+>>>
+
+```
+***
+## layer
+returns layer (NueronLayer object) at the passed  parameter 'layerNumer'
+
+**layer indexing for a NueralNetwork object starts from zero**
+
+Parameters 
+- layerNumber 
+
+    index of the desired layer 
+
+Example
+```
+>>> nn.layer(2)
+FrontalLobe.NueronLayer(width=3,includeBias=True)
+>>> nn.layer(2).includeBias
+True
+>>> nn.layer(2).layer
+array([[ 1.      ],
+       [-0.362999],
+       [ 0.011057]])
+>>>
+
 ```
 
+## getDim
+returns dimension of the architecture of the NueralNetwork object,
+dimension of the NueralNetwork object is a tuple containing two elements, 1st the width of the layer with maximum width of the arhitecture of the NueralNetwork and second the number of layers. By default the input layer is not considered for the number of layers, but can be included by setting the parameter 'includeIL' to True.
 
-### Instance Methods
+Parameters
+
+- inludeIl
+
+    if True input layer is also considered for 2nd member of return tuple (number of layers in architecture), by default False
+
+Example
+```
+>>> print(nn.getDim())
+(5, 3)
+>>> print(nn.getDim(True))
+(5, 4)
+>>>
+
+```
+
+## getTrainingStatus
+returns True if the NueralNetwork object is not trained using [train](#train)
+method of the NueralNetwork object, atleast once.
+
+Examples
+```
+>>> nnCopy.getTrainingStatus()
+True
+>>>
+```
+## append
+appends a new NueronLayer at the end of  NueralNetwork object onlhy if the object is not trained using [train](#train) method of the NueralNetwork object, atleast once.
+
+Parameters 
+
+- layerData : int, NueronLyer object, tuple of int and bool
+        
+        parameters of layer to append
+
+
+
+## pop
+
+
+## resetLayers
+
+
+## dump
+
+
+## copy
+
+
+## setBiases
+
+
+## layerNormalization
+
+
+## getWeightShape
+
+
+## sigmoid
+
+
+## derivativeSigmoid
+
+
+## ReLU
+
+
+## derivativeReLU
+
+
+## tanH
+
+
+## derivativeTanH
+
+
+## linear
+
+
+## derivativelinear
+
+
+## predict
+
+
+## validate
+
+
+## labelExtractor
+
+
+## train
