@@ -210,6 +210,7 @@ array([[ 1.      ],
 >>>
 
 ```
+***
 
 ## getDim
 returns dimension of the architecture of the NueralNetwork object,
@@ -230,7 +231,7 @@ Example
 >>>
 
 ```
-
+***
 ## getTrainingStatus
 returns True if the NueralNetwork object is not trained using [train](#train)
 method of the NueralNetwork object, atleast once.
@@ -241,6 +242,7 @@ Examples
 True
 >>>
 ```
+***
 ## append
 appends a new NueronLayer at the end of  NueralNetwork object onlhy if the object is not trained using [train](#train) method of the NueralNetwork object, atleast once.
 
@@ -251,59 +253,61 @@ Parameters
         parameters of layer to append
 
 
-
+***
 ## pop
 
-
+***
 ## resetLayers
-
+***
 
 ## dump
 
-
+***
 ## copy
-
+***
 
 ## setBiases
 
-
+***
 ## layerNormalization
 
-
+***
 ## getWeightShape
 
-
+***
 ## sigmoid
 
+***
 
 ## derivativeSigmoid
 
-
+***
 ## ReLU
 
-
+***
 ## derivativeReLU
 
-
+***
 ## tanH
 
-
+***
 ## derivativeTanH
 
-
+***
 ## linear
 
-
+***
 ## derivativelinear
 
-
+***
 ## predict
 
-
+***
 ## validate
 
-
+***
 ## labelExtractor
 
-
+***
 ## train
+***
