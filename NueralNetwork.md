@@ -20,25 +20,25 @@ A NueralNetwork object requires atmost 4 parameters (1 mandatory, 3 optional ) d
         - 'NueronLayer' : a 'NueronLayer' object, see
 [NueronLayer](https://github.com/Achyut-sudo/FrontalLobe/blob/main/NueronLayer.md) to check different ways to initialize a 'NueronLayer' object    
 
-    - the list for parameter 'architecture' can also be empty! but before training, new layers must be added using 'append' method of the NueralNetwork 'class-entropy cost' of the NueralNetwork object as it may hinder
+    - the list for parameter 'architecture' can also be empty! but before training, new layers must be added using 'append' method of the NueralNetwork
         
         
 - HLAF : 'Hidden Layer Activation Function', activation function for forward propagation in hidden layers 
     - the values for parameter 'HLAF' can be :
         - int : supported int values for parmeter 'HLAF' are :
             - 1 for sigmoid activation function
-            - 2 for ReLu activation Function
+            - 2 for ReLU activation Function
             - 3 for tanH activation function
             - 4 for linear activation function
-        - str : supported str values for parameter 'OLAF' are :
+        - str : supported str values for parameter 'HLAF' are :
             - 'sigmoid; for sigmoid activation function
-            - 'ReLU' for ReLu activation Function
+            - 'ReLU' for ReLU activation Function
             - 'tanH' for tanH activation function
             - 'linear' for linear activation function
         - default value : 'sigmoid'
 
 - OLAF : 'Output Layer Activation Function', activation function for forward propagation to ouput layers
-    - the values for parameter 'HLAF' can be :
+    - the values for parameter 'OLAF' can be :
         - int : supported int values for parmeter 'HLAF' are :
             - 1 for sigmoid activation function
             - 2 for tanH activation function
@@ -52,6 +52,7 @@ A NueralNetwork object requires atmost 4 parameters (1 mandatory, 3 optional ) d
 
 
 ```
+>>> import FrontalLobe
 >>> nn = FrontalLobe.NueralNetwork([4,(3,True),FrontalLobe.NueronLayer(3),FrontalLobe.NueronLayer(3,False),(2,False)])
 >>> print(nn)
 input Layer    hiddenLayer 1    hiddenLayer 2    hiddenLayer 3    output Layer
@@ -70,6 +71,7 @@ input Layer    hiddenLayer 1    hiddenLayer 2    hiddenLayer 3    output Layer
 ## Features
 
 
+
 ## Attributes 
 
 
@@ -80,3 +82,66 @@ input Layer    hiddenLayer 1    hiddenLayer 2    hiddenLayer 3    output Layer
 as in this version (0.0.1) all the attributes are supposed to be modified by the class methods only and direct modification may lead to change in the behaviour of the NueralNetwork object and eventually to an error
 
 ## Methods
+
+- toString
+- layer
+- getDim
+- getTrainingStatus
+- append
+- pop
+- resetLayers
+- dump
+- load
+- copy
+- setBiases
+- layerNormalization
+- getWeightShape
+- sigmoid
+- derivativeSigmoid
+- ReLU
+- derivativeReLU
+- tanH
+- derivativeTanH
+- linear
+- derivativelinear
+- predict
+- validate
+- labelExtractor
+- train
+
+
+
+### Class Methods
+
+#### load(fileName = str)
+    loads locally saved images of NueralNetwork object (nueralNetwok objects can be saved locally using 'dump' method of NueralNetwork object)
+    parameters
+
+        fileName : str
+            name pf the file for the local image of the NueralNetwork obj, include the directory if the desired location of the file is same as current working directory
+
+    Examples
+```
+    >>> import FrontalLobe
+    >>> nnCopy = nn.load("d:\\codes\\ml\\NueralNett\\nnCopy")
+    >>> print(nnCopy)
+    input Layer    hiddenLayer 1    hiddenLayer 2    output Layer
+    -------------  ---------------  ---------------  --------------
+    1.0
+
+    0.0            1.0              1.0              0.0
+
+    0.0            0.0              0.0              0.0
+
+    0.0            0.0              0.0              0.0
+
+    0.0
+    >>> nnCopy.HLAF.__name__
+    'linear'
+    >>> nnCopy.OLAF.__name__
+    'sigmoid'
+    >>>
+```
+
+
+### Instance Methods
