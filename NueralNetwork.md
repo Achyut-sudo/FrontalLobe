@@ -91,7 +91,7 @@ as in this version (0.0.1) all the attributes are supposed to be modified by the
 - pop
 - resetLayers
 - dump
-- load
+- [load](#load(fileName = str))
 - copy
 - setBiases
 - layerNormalization
