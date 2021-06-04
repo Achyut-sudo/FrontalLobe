@@ -1,6 +1,6 @@
 # NueralNetwork
 
-A class of 'FrontalLobe' library to create and train a Artificial Nueral Network and then predict on the basis of the training.
+A class of 'FrontalLobe' library to create and train  Artificial Nueral Networks and then predict on the basis of the training.
 
 ## Initialization 
 
@@ -87,6 +87,8 @@ as in this version (0.0.1) all the attributes are supposed to be modified by the
 - [layer](#layer)
 - [getDim](#getDim)
 - [getTrainingStatus](#getTrainingStatus)
+- [getHLAF](#getHLAF)
+- [getOLAF](#getOLAF)
 - [append](#append)
 - [pop](#pop)
 - [resetLayers](#resetLayers)
@@ -96,6 +98,7 @@ as in this version (0.0.1) all the attributes are supposed to be modified by the
 - [setBiases](#setBiases)
 - [layerNormalization](#layerNormalization)
 - [getWeightShape](#getWeightShape)
+- [RWInitialization](#RWInitialization)
 - [sigmoid](#sigmoid)
 - [derivativeSigmoid](#derivativeSigmoid)
 - [ReLU](#ReLU)
@@ -193,9 +196,9 @@ returns layer (NueronLayer object) at the passed  parameter 'layerNumer'
 **layer indexing for a NueralNetwork object starts from zero**
 
 Parameters 
-- layerNumber 
+- layerNumber : int
 
-    index of the desired layer 
+        index of the desired layer 
 
 Example
 ```
@@ -218,9 +221,9 @@ dimension of the NueralNetwork object is a tuple containing two elements, 1st th
 
 Parameters
 
-- inludeIl
+- inludeIl : bool
 
-    if True input layer is also considered for 2nd member of return tuple (number of layers in architecture), by default False
+        if True input layer is also considered for 2nd member of return tuple (number of layers in architecture), by default False
 
 Example
 ```
@@ -243,71 +246,216 @@ True
 >>>
 ```
 ***
+## getHLAF
+returns the name of the activation function set for hidden layers at initialization
+
+Examples
+```
+>>> nnCopy.getTrainingStatus()
+True
+>>>
+```
+***
+## getOLAF
+returns the name of the activation function set for output layer at initialization
+Examples
+```
+>>> nnCopy.getTrainingStatus()
+True
+>>>
+```
+***
 ## append
 appends a new NueronLayer at the end of  NueralNetwork object onlhy if the object is not trained using [train](#train) method of the NueralNetwork object, atleast once.
 
 Parameters 
 
-- layerData : int, NueronLyer object, tuple of int and bool
+- layerData : int, NueronLayer object, tuple of int and bool
         
-        parameters of layer to append
+        parameters of layer to append, this parameter follows the same  as the memeber of the architecture parameter for intialization as described in 'architecture' section of Initialization
+
+Example
+```
+```
+
 
 
 ***
 ## pop
+removes and returns the layer of NueralNetwork object at index parameter 'layerNumber'
 
+**layer indexing for a NueralNetwork object starts from one**
+
+Paramters 
+- layerNumber : int
+    
+        index of layer to be poped
+
+
+Example
+```
+```
 ***
 ## resetLayers
+resets the activation Value of the nuerons of the NueralNetwork objects to the passed value of parameter 'resetVal'. By default all the biases are not included to reset but can be included if the boolean parameter 'resetBiases' is set to True
+
+Parameters
+- resetVal : int, float, optional
+        
+        value to set all the activation values of the NueralNetwork object
+- resetBiases : bool, optional
+        
+        if True biases will be reset to resetVal otherwise biases will remain unchanged, by defaul False
+
+
+Example
+```
+```
 ***
 
 ## dump
+saves the NueralNetwork object's image locally. By default image is saved as 
+Example
+```
+>>> import os
+>>> nn.dump("nnDump")
+>>> # nn is a trained nueralNetwork object
+>>> os.path.exists(f"{os.getcwd()}\\nnDump")
+True
+>>> nn.dump("d:\\codes\\ml\\New Folder\\nnDump",False)
+>>> os.path.exists("d:\\codes\\ml\\New Folder\\nnDump")
+True
+>>> temp1 = nn.load("nnDump")
+>>> temp1.getTrainingStatus()
+True
+>>> temp2 = nn.load("d:\\codes\\ml\\New Folder\\nnDump")
+>>> temp2.getTrainingStatus()
+False
+>>>
 
+```
 ***
 ## copy
+returns the copy of the NUeralNetwork object
+
+Example
+```
+```
 ***
 
 ## setBiases
+sets bias of all layers (containing biases) to passed parameter 'biasVal'
 
+Parameters
+
+- biasVal : int,float,numpy.ndarray,list
+
+        value to set biases of layers of the NueralNetwork obj,
+        if type (biasVal) is in [int,float], then all biases 
+        of layers are set to same value of parameter 'biasVal'
+        if type(biasVal) is in [list,numpy.ndarray], then 
+        all biases are set index wise and parameter 'biasval'
+        must be single dimensional, if they are to be passed 
+        as a list or a numpy.ndarray
+
+
+
+Example
+```
+```
 ***
 ## layerNormalization
+min-max normalization of parameter at passed index parameter 'layerNUmber'
 
+this normalization method replaces each nueron in the layer at index 'layerNumber' with ratio of it's difference with minimum activation value in that layer  to the difference of maximum and minumum activation values in that layer, if the input layer is to be normalized then the input vals are normalized as input
+Example
+```
+```
 ***
 ## getWeightShape
+returns shape of the weight matrix for forward propagation form index 'layerNumber' 
+to index 'layerNumber' + 1
+Example
+```
+```
+***
+## RWInitialization
+sets the weights of all layers to random values between paramrter 'limit' to -1*'limit' of type as parameter 'weightType' 
 
+Example
+```
+```
 ***
 ## sigmoid
-
+applies sigmoid activation to mambers of parameter 'layer' and returns it
+Example
+```
+```
 ***
 
 ## derivativeSigmoid
-
+Examplr
+```
+```
 ***
 ## ReLU
-
+applies sigmoid activation to mambers of parameter 'layer' and returns it
+Example
+```
+```
 ***
 ## derivativeReLU
-
+Example
+```
+```
 ***
 ## tanH
-
+applies sigmoid activation to mambers of parameter 'layer' and returns it
+Example
+```
+```
 ***
 ## derivativeTanH
 
+Example
+```
+```
 ***
 ## linear
-
+applies sigmoid activation to mambers of parameter 'layer' and returns it
+Example
+```
+```
 ***
 ## derivativelinear
-
+applies sigmoid activation to mambers of parameter 'layer' and returns it
+Example
+```
+```
 ***
 ## predict
-
+predicts on the passed examples parameter 'x' and current training of the NueralNetwork object and returns numpy.ndarray of the predicted labels
+Example
+```
+```
 ***
 ## validate
-
+when a NueralNetwork object is trained the passed training set parameters  ('X', 'Y') is split continously or randomly (specified in the ['train'](#train)) in two one part is used for  training and other for testing, this methods predicts on the testing part of the examples parameter 'X' and validates it with corresponding testing label parameters 'Y' and creates a creates a 'confusionMatrix' obkect of the validation.
+Example
+```
+```
 ***
 ## labelExtractor
-
+extracts predict class from the current activation values of the  output layer of the Nueral Network of the NueralNetwork object 
+Example
+```
+```
 ***
 ## train
+trains the NueralNetwork object (pre-trained or otherwise) using Gradient Descent and Backpropagation algorithm according to passed parameters 
+Example
+```
+```
 ***
+
+
