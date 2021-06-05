@@ -24,7 +24,7 @@ A NueralNetwork object requires atmost 4 parameters (1 mandatory, 3 optional ) d
         
         
 - HLAF : 'Hidden Layer Activation Function', activation function for forward propagation in hidden layers 
-    - the values for parameter 'HLAF' can be :
+    - the values for parameter 'HLAF' can be str or int as follow :
         - int : supported int values for parmeter 'HLAF' are :
             - 1 for sigmoid activation function
             - 2 for ReLU activation Function
@@ -38,7 +38,7 @@ A NueralNetwork object requires atmost 4 parameters (1 mandatory, 3 optional ) d
         - default value : 'sigmoid'
 
 - OLAF : 'Output Layer Activation Function', activation function for forward propagation to ouput layers
-    - the values for parameter 'OLAF' can be :
+    - the values for parameter 'OLAF' can be str or int as follow :
         - int : supported int values for parmeter 'HLAF' are :
             - 1 for sigmoid activation function
             - 2 for tanH activation function
