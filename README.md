@@ -19,7 +19,7 @@ python > 3.6
 
 ## Installation
 
-pip install FrontalLobe
+pip install FrontalLobe==0.0.1.1
 
 ## Version
 
