@@ -25,6 +25,10 @@ class rolledVector:
 	data structure to store multiply numpy.ndarrays as one dimensional members 
 	arrays and implement operators/methods collectively
 
+	For examples and features and other deatiled explanations :
+
+	https://github.com/Achyut-sudo/FrontalLobe/blob/main/rolledVector.md
+
 	...
 
 	Attributes
@@ -454,7 +458,12 @@ class skeletonRolledVector(rolledVector):
 	subclass of rolledVector class,with shapeData passed as
 	parameter during initialization
 
-	** for detailed explanation see help(FrontalLobe.skeletonRolledVector.<method Name/generator Name>)
+	For examples and features and other deatiled explanations :
+
+	https://github.com/Achyut-sudo/FrontalLobe/blob/main/skeletonRolledVector.md
+
+	** for inherited methods of class 'rolledVector' see 
+	help(FrontalLobe.skeletonRolledVector.<method Name/generator Name>)
 	The docstring examples assume that `FrontalLobe` has been imported as `FrontalLobe
 
 	"""
@@ -498,6 +507,10 @@ class confusionMatrix:
 	u"""
 	class for describing  performance of a classification
 	model
+
+	For examples and features and other deatiled explanations :
+
+	https://github.com/Achyut-sudo/FrontalLobe/blob/main/confusionMatrix.md
 
 	Example
 	-------
@@ -1869,6 +1882,10 @@ class NueronLayer:
 	"""
 	class for creating single layer of nuerons
 
+	For examples and features and other deatiled explanations :
+
+	https://github.com/Achyut-sudo/FrontalLobe/blob/main/NueronLayer.md
+
 	...
 
 	Attributes
@@ -1975,6 +1992,10 @@ class NueronLayer:
 class NueralNetwork:
 	"""
 	class for creating aand training NueralNetwork obj
+
+	For examples and features and other deatiled explanations :
+
+	https://github.com/Achyut-sudo/FrontalLobe/blob/main/NueralNetwork.md 
 
 	...
 
