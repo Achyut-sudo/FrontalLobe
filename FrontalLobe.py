@@ -1973,9 +1973,138 @@ class NueronLayer:
 				self.__setitem__(i,round(self.__getitem__(i),precision))
 
 class NueralNetwork:
-	
+	"""
+	class for creating aand training NueralNetwork obj
+
+	...
+
+	Attributes
+	----------
+	architecture : list
+		list of component layer of type 'NueronLayer' class
+		of the 'NueralNetwork' obj 
+	precision : int
+		number of places of digits in activation values of
+		the nuerons of the NueralNetwork obj and other in
+		other internal calculations, except of the cost of
+		the NueralNetwork object
+ 	activationFuncs : list
+	 	list of activation functions of the NueralNetwork obj
+	weights : rolledVector
+		rolledVector obj containing all weights of the 
+		NueralNetwork obj
+	HLAF : method
+		activation function for the hidden layers of the 
+		NueralNetwork obj
+	OLAF : method
+		activation function for the output layer of the 
+		NueralNetwork obj
+	X : np.ndarray,pd.core.frame.DataFrame,pd.core.series.Series
+		training and validating examples, set during each training
+		using 'train' method
+	Y : np.ndarray,pd.core.frame.DataFrame,pd.core.series.Series
+		training and validating labels, set during each training
+		using 'train' method
+	trainingSize : int
+		number of examples and labels set used for training, set 
+		during 'train' method
+	width : int 
+		width of component layer with maximum width 
+	depth : int
+		number of component layer excluding input layer
+	cost : int
+		cross-entropy cost of each epoch during training
+	classes : list
+		class labels for each classes in label set 'Y', set once 
+		during training of the NueralNetwork obj for the first time
+		
+	Methods
+	-------
+	toString(printUnderLine : bool)
+		retiurnns string reperesentation of the architecture of the
+		NueralNetwork obj
+	layer(layerNumber : int)
+		returns layer at the index 'layerNumber' of the NUeralNetwork 
+	getDim(includeIL : bool, optional)
+		returns the dimension of the NueralNetwork, (tuple containing 
+		width and depth of the architecture of NueralNetwork obj)
+	getTrainingStatus()
+		returns True if the NUereralNetwork obj is trained atleast once
+		otherwise returns False
+	getHLAF()
+		returns name of the activation function for the Hidden layers 
+		of the NueralNetwork obj
+	getOLAF()
+		returns name of the activation function for the output layer 
+		of the NueralNetwork obj
+	append(layerData : [list,int,tuple])
+		adds new layer at the end of a non pre-trained NueralNetwork 
+		obj
+	pop(layerNumber : int)
+		removes and returns layer of NueralNetwork obj at index 
+		'layerrNumber'
+	resetLayers(resetVal : [int,float], resetBiases : bool)
+		resets activation values of nuerons of NueralNetwork obj
+	resetWeights(resetVal : [rolledVector,skeletonRolledVector] )
+		resets attribute 'weights' of the NueralNerwork obj
+	dump(fileName: str, trainingStatus: bool,optional)
+		saves NueralNetwork obj locally
+	load(fileNmae : str)
+		**CLASS METHOD** to load a locally saved image of NueralNetwork 
+		obj 
+	copy()
+		returns a copy of the nueralNetwork obj
+	setBiases(biasVal: [list,numpy.ndarray,int,float])
+		set biases of all layera of the NueralNetwork obj
+	layerNormalization(layerNumber: int, normalizeBias: bool, optional)
+		normalizes layer at index 'layerNumber' of the NueralNetwork obj
+	getWeightShape(layerNumber: int)
+		returns shape of weight matrix for forward propagation
+	RWInitialization(e : [int,float], weight: <class 'type'>, optional )
+		random weight initialization 
+	Sigmoid(layer:  numpy.ndarray)
+		sigmoid activation function
+	derivativeSigmoid(layer:  numpy.ndarray)
+		deivative of sigmoid activation function
+	ReLU(layer:  numpy.ndarray)
+		ReLU activation function
+	derivativeReLU(layer:  numpy.ndarray)
+		derivative of ReLU activation function
+	tanH(layer:  numpy.ndarray)
+		hyperbolic tangent activation function
+	derivativeTanH(layer:  numpy.ndarray)
+		derivative of hyperbolic tangent activation function
+	linear(layer:  numpy.ndarray)
+		linear activation function
+	derivativeLinear(layer:  numpy.ndarray)
+		derivative  of linear activation function
+	predict(x: numpy.ndarray, normalizeInput: bool, optional, resetNetwork : bool, optional)
+		predicts on 'x' based on current training of NueralNetwork 
+		obj
+	validate(normalizeInput: bool, optional, resetNetwork: bool, optional,classNames : [list,numpy.ndarray], optional )
+		returns a confusionMatrix obj by predicting on test examples 
+	labelExtractor()
+		extracts labels from output layerr of the NueralNetwork obj
+	train(
+		X : [numpy.ndarray,pandas.core.frame.DataFrame,pandas.core.series.Series]
+		Y : [numpy.ndarray,pandas.core.frame.DataFrame,pandas.core.series.Series]
+		alpha: [int,float], biasVal: int,optional, trainSize: float, optional,
+		RWILimit: [int,float],optional, weightType: [int,float], optional,
+		ignoreWeights: bool, replaceIL: bool,optional,changeILBias: bool,optional,
+		replaceOL: bool,optional, normalizeInput: bool,optional, splitData: [str,int],optional,
+		iterationSize: int, optional
+	)
+		trains NueralNetwork obj
+
+	**Indexing of the component layers of the Nuerlanetwork ob
+	  starts from 1, this must be considered while passing index
+	  of layers to methods which operates on layers and takes 
+	  index of the layer as parameter (mostly this parameter 
+	  is named as 'layerNumber')
+
+	"""
 	def __init__(self,architecture,HLAF="sigmoid",OLAF= "sigmoid",precision = 4):
-		"""[summary]
+		"""
 
 		Parameters
 		----------
@@ -2174,6 +2303,8 @@ class NueralNetwork:
 		-------
 		NueronLayer
 			layer at index 'layerNumber'
+			**indexing for the layers of the NueralNetwork
+			  obj starts from 1
 
 		Raises
 		------
@@ -2184,7 +2315,7 @@ class NueralNetwork:
 			if parameter 'layerNumber' is < 1 or greater 
 			than the number of layers in the NueralNetwork 
 			obj
-
+		
 		"""
 		if type(layerNumber) != int:
 			raise TypeError("type of argument 'layerNumber' must be int")
@@ -2233,6 +2364,30 @@ class NueralNetwork:
 		"""
 		return self.__preTrained
 
+	def getHLAF(self):
+		"""returns name of activation function foir the hidden layers 
+		of the the NueralNetwork object's
+
+		Returns
+		-------
+		str 
+			name of the activation function of the hidden layer 
+			of the NueralNetwork obj
+		"""
+		return self.HLAF.__name__
+
+	def getOLAF(self):
+		"""returns name of activation function for the output layers 
+		of the the NueralNetwork obj
+
+		Returns
+		-------
+		str 
+			name of the activation function of the output layer 
+			of the NueralNetwork obj
+		"""
+		return self.OLAF.__name__
+
 	def append(self,layerData) :
 		"""adds new layer at the end of a non pre-trained NueralNetwork obj
 
@@ -2272,7 +2427,7 @@ class NueralNetwork:
 			raise AttributeError("can not add new layer to a pre-trained NueralNetwork model")
 
 	def pop(self,layerNumber):
-		"""removes and returns layer of NueralNetwork obj at index 'layerrNumber'.
+		"""removes and returns layer of NueralNetwork obj at index 'layerrNumber'
 
 		removes and returns NueronLayer of the NueralNetwork at
 		value of passed parameter 'layerNumber'
@@ -2285,6 +2440,8 @@ class NueralNetwork:
 		----------
 		layerNumber : int
 			index of layer to be poped
+			**indexing for the layers of the NueralNetwork
+			  obj starts from 1
 
 		Returns
 		-------
@@ -2318,7 +2475,7 @@ class NueralNetwork:
 		else:
 			raise AttributeError("can not pop alayer from a pre-trained NueralNetwork model")
 
-	def resetLayers(self,resetVal = 0,resetBiases = True):
+	def resetLayers(self,resetVal = 0,resetBiases = False):
 		"""resets activation values of nuerons of NueralNetwork obj
 
 		sets acctivation vlauea of all nuerons of Nueral netowk
@@ -2328,11 +2485,11 @@ class NueralNetwork:
 
 		Parameters
 		----------
-		resetVal : int, optional
+		resetVal : int,float, optional
 			sets activation value of all nuerons, by default 0
 		resetBiases : bool, optional
 			True if reset of biases are required otherwise 
-			False, by default True
+			False, by default False
 
 		Raises
 		------
@@ -2411,6 +2568,8 @@ class NueralNetwork:
 		"""
 		if type(trainingStatus) != bool :
 			raise TypeError("type of argument 'trainingStatus' must be int")
+		if os.path.dirname(fileName) == '' :
+			fileName = os.getcwd()+"\\"+ fileName
 		with open(fileName,"wb+") as wf:
 			temp = self.copy()
 			temp.__preTrained = self.__preTrained if trainingStatus == True else False
@@ -2419,7 +2578,7 @@ class NueralNetwork:
 
 	@staticmethod
 	def load(fileName):
-		"""loads a NueralNetwork obj image from local directory
+		"""CLASS method to load a locally saved image of NueralNetwork obj 
 
 		loads a NueralNetwork image form a local file 
 		and retuens a NueralNetwork obj
@@ -2523,7 +2682,7 @@ class NueralNetwork:
 			raise TypeError("argument 'biasVal' can only be a single dimensional list or numpy.ndarray") from None
 
 	def layerNormalization(self,layerNumber,normalizeBias = False):
-		"""normalizes layer of the NueralNetwork obj
+		"""normalizes layer at index 'layerNumber' of the NueralNetwork obj
 
 		normalizes layer of the NueralNetwork obj at 
 		index 'layerNumber'
@@ -2532,6 +2691,8 @@ class NueralNetwork:
 		----------
 		layerNumber : int
 			index of layer to be normalized
+			**indexing for the layers of the NueralNetwork
+			  obj starts from 1
 		normalizeBias : bool, optional
 			if True, the biases of the layer is also 
 			included in normalization, by default False
@@ -2574,7 +2735,9 @@ class NueralNetwork:
 		Parameters
 		----------
 		layerNumber : int
-			index of layer 
+			index of layer
+			**indexing for the layers of the NueralNetwork
+			  obj starts from 1 
 
 		Returns
 		-------
@@ -3109,7 +3272,7 @@ class NueralNetwork:
 		delta.reverse()
 		return delta
 
-	def train(self,X,Y,alpha,biasVal = 1,trainSize = 0.8,RWILimit = 10,weightType =float,
+	def train(self,X,Y,alpha,biasVal = 1,trainSize = 0.8,RWILimit = 10,weightType =float,ignoreWeights = False,
 		replaceIL = True,changeILBias = False,replaceOL = True,normalizeInput = True,splitData = 'random',iterationSize = 100):
 		"""trains NueralNetwork obj
 
@@ -3138,6 +3301,12 @@ class NueralNetwork:
 			specifies the type of memebers of attribute
 			'weights', by default float see
 			help(FrontalLobe.NueralNetwork.RWInitialization)
+		ignoreWeights : bool
+			if True and if the NueralNetwork object is trained 
+			atleast once, then existing weights will be replaced 
+			by random weights between the RWILimit and -RWILimit
+			and of type passed in parameter 'weightType',by 
+			default False 
 		replaceIL : bool, optional
 			specifies to change the width of input layer  or 
 			not, if width of input layer is not compatible 
@@ -3283,9 +3452,8 @@ class NueralNetwork:
 						warnings.warn(f"a new layer (output layer) is added to the NueralNetwork (numbers of layers in the Networks is increased from {len(self.architecture) - 1} tp {len(self.architecture)}")
 		self.setBiases(biasVal)
 		self.X,self.Y = self.__transformX(X),tempY
-		if self.__preTrained == True:
-			if self.isEmpty == True:
-				self.RWInitialization(RWILimit,weightType)
+		if self.__preTrained == True and ignoreWeights == True:
+			self.RWInitialization(RWILimit,weightType)
 			if self.classes != classes:
 				self.X,self.Y = None,None
 				raise ValueError(f"new training set (X,Y) do not contain same classes as the pre-trained NueralNetwork was previously trained on ")
@@ -3294,7 +3462,6 @@ class NueralNetwork:
 		self.__randomSplit(trainSize) if splitData in ["random",1] else self.__continuousSplit(trainSize)
 		if self.__preTrained == False:
 			self.RWInitialization(RWILimit,weightType)
-			self.confusionMat = confusionMatrix(len(self.classes),self.classes)
 		self.costs = []
 		self.alpha = alpha
 		self.cost = 0
@@ -3322,11 +3489,12 @@ class NueralNetwork:
 			output[0] = f"epoch: {iterationSize}"
 		if iterationSize > 0: 
 			plt.plot(list(range(len(self.costs))),self.costs)
+			plt.xlabel("no. of iterations")
+			plt.ylabel(f"j(\u03F4)",rotation=0)
 			plt.show()
 		self.__preTrained = True
 	
 	
-
 
 
 	
