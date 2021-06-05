@@ -1,3 +1,5 @@
+# **EDIT IN PROGRESS**
+
 # NueralNetwork
 
 A class of 'FrontalLobe' library to create and train  Artificial Nueral Networks and then predict on the basis of the training.
@@ -24,7 +26,7 @@ A NueralNetwork object requires atmost 4 parameters (1 mandatory, 3 optional ) d
         
         
 - HLAF : 'Hidden Layer Activation Function', activation function for forward propagation in hidden layers 
-    - the values for parameter 'HLAF' can be str or int as follow :
+    - the values for parameter 'HLAF' can be :
         - int : supported int values for parmeter 'HLAF' are :
             - 1 for sigmoid activation function
             - 2 for ReLU activation Function
@@ -38,7 +40,7 @@ A NueralNetwork object requires atmost 4 parameters (1 mandatory, 3 optional ) d
         - default value : 'sigmoid'
 
 - OLAF : 'Output Layer Activation Function', activation function for forward propagation to ouput layers
-    - the values for parameter 'OLAF' can be str or int as follow :
+    - the values for parameter 'OLAF' can be :
         - int : supported int values for parmeter 'HLAF' are :
             - 1 for sigmoid activation function
             - 2 for tanH activation function
@@ -302,7 +304,7 @@ resets the activation Value of the nuerons of the NueralNetwork objects to the p
 Parameters
 - resetVal : int, float, optional
         
-        value to set all the activation values of the NueralNetwork object
+         value to set all the activation values of the NueralNetwork object
 - resetBiases : bool, optional
         
         if True biases will be reset to resetVal otherwise biases will remain unchanged, by defaul False
@@ -399,7 +401,7 @@ Examplr
 ```
 ***
 ## ReLU
-applies sigmoid activation to mambers of parameter 'layer' and returns it
+applies rectified linear unit activation to mambers of parameter 'layer' and returns it
 Example
 ```
 ```
@@ -410,7 +412,7 @@ Example
 ```
 ***
 ## tanH
-applies sigmoid activation to mambers of parameter 'layer' and returns it
+applies hyperbolic tangent activation to mambers of parameter 'layer' and returns it
 Example
 ```
 ```
@@ -422,7 +424,7 @@ Example
 ```
 ***
 ## linear
-applies sigmoid activation to mambers of parameter 'layer' and returns it
+applies linear activation to mambers of parameter 'layer' and returns it
 Example
 ```
 ```
@@ -453,6 +455,87 @@ Example
 ***
 ## train
 trains the NueralNetwork object (pre-trained or otherwise) using Gradient Descent and Backpropagation algorithm according to passed parameters 
+Parameters
+
+- X : [numpy.ndarray,pandas.core.frame.DataFrame,pandas.core.series.Series]
+                
+                training examples
+
+- Y : [numpy.ndarray,pandas.core.frame.DataFrame,pandas.core.series.Series]
+                
+                labels
+
+- alpha : int,float
+
+                learning rate
+
+- biasVal : int, optional
+
+                sets bias values of all layer with biases
+                , by default 1 see 
+                help(FrontalLobe.NueralNetwork.setBiases)
+                for more info
+
+- trainSize : float, optional
+
+                ratio of size of examples and labels used for 
+                training to overal size of training set, by 
+                default 0.8
+
+- RWILimit : int,float, optional
+
+                limit for random weight initialization, by 
+                default 10 see
+                help(FrontalLobe.NueralNetwork.RWInitialization)
+
+- weightType : int,float, optional
+
+                specifies the type of memebers of attribute
+                'weights', by default float see
+                help(FrontalLobe.NueralNetwork.RWInitialization)
+
+- ignoreWeights : bool
+
+                if True and if the NueralNetwork object is trained 
+                atleast once, then existing weights will be replaced 
+                by random weights between the RWILimit and -RWILimit
+                and of type passed in parameter 'weightType',by 
+                default False 
+
+- replaceIL : bool, optional
+
+                specifies to change the width of input layer  or 
+                not, if width of input layer is not compatible 
+                with shape of memebers of training set 'X' 
+                if width of input layer is not compatible, by 
+                default True
+
+- changeILBias : bool, optional
+
+                if True and if width of input layer is not compatible with shape of memebers of example set 'X', then the bias nueron will be removed if it was
+                there previously otherwise will be added, by default 
+                False
+
+- replaceOL : bool, optional
+
+                species to change the width of ouput layer or not, if width of output layer is not compatible with no. of class in label set 'Y', by default 
+                True
+
+- normalizeInput : bool, optional
+
+                if True normalizes input of the NueralNetwork obj, by default True
+
+- splitData : [str,int], optional
+
+                specifies to split training set randomly or continously, supported valueas are:
+                'random' or 1, 
+                'continuous' or 2, 
+                by default 'random'
+
+- iterationSize : int, optional
+
+                specifies no.of epochs, by default 100
+
 Example
 ```
 ```
