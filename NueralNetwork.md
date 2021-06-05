@@ -455,7 +455,9 @@ Example
 ***
 ## train
 trains the NueralNetwork object (pre-trained or otherwise) using Gradient Descent and Backpropagation algorithm according to passed parameters 
+
 Parameters
+
 
 - X : [numpy.ndarray,pandas.core.frame.DataFrame,pandas.core.series.Series]
                 
