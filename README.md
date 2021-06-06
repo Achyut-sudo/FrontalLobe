@@ -15,7 +15,7 @@ Although there are much more advanced and suitable frameworks developed by exper
 
 ## Requirements 
 
-python > 3.6
+python >= 3.6
 
 ## Installation
 
