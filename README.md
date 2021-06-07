@@ -27,12 +27,12 @@ The model used, contains a hidden layer of 3 neurons with one bias so does the i
 
 ## Requirements 
 
-python > 3.6
+python >= 3.6
 
 ## Installation
 
 pip install FrontalLobe
-
+**Note: this library must not be ussed in Jupyter notebooks as the above mentioned feature of 'real time display' is not suuported'**
 ## URLs
 
 The url address of detailed explaination and features of component classes of this library are given below:
