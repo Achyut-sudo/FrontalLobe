@@ -3426,10 +3426,10 @@ class NueralNetwork:
 			errorArg,errorType = ("X",type(X)) if X not in allowedDTypes  else ("Y",type(Y)) 
 			raise TypeError(f" {errorType} is not valid type for {errorArg}, supported types are {allowedDTypes.__str__()[1:-1]}")
 		if type(X) == np.ndarray:
-			if X.dim != 2 :
+			if X.ndim != 2 :
 				raise TypeError(f"training examples (X) can only be 2 dimensional numpy.ndarray")
 		if type(Y) == np.ndarray:
-			if Y.dim not in [1,2] :
+			if Y.ndim not in [1,2] :
 				raise TypeError(f"training labels (X) can only be 2 dimensional numpy.ndarray")
 		X = np.array(X) if type(X) != np.ndarray else X
 		Y = np.array(Y) if type(Y) != np.ndarray else Y
