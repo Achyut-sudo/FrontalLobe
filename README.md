@@ -13,7 +13,7 @@ time display of change in activation values of the component nuerons in the Nuer
 
 ## Iris Data set 
 
-on testing this library on [UCI'S iris dataset](https://archive.ics.uci.edu/ml/datasets/iris) an acuuracy of 100% was  achieved in 1000 epochs on test set of 30 examples.
+on testing this library on [UCI's iris dataset](https://archive.ics.uci.edu/ml/datasets/iris) an acuuracy of 100% was  achieved in 1000 epochs on test set of 30 examples.
 
 
 The model used, contains a hidden of layer 3 nuerons with one bias so does the input layer of 5 input  nuerons and the ouput layer contains 3 nuerons  corresponding to each class label.Sigmoid activation function is used for the hidden layer as well as for the output layers with alpha value of 5. [click](https://github.com/Achyut-sudo/FrontalLobe/blob/main/driver.py) for the code used.
