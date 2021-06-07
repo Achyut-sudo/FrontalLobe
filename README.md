@@ -35,7 +35,7 @@ pip install FrontalLobe
 
 
 
-**Note: this library must not be ussed in Jupyter notebooks as the above mentioned feature of 'real time display' is not suuported'**
+**Note: this library must not be used in Jupyter notebooks as the above mentioned feature of 'real time display' is not suuported**
 ## URLs
 
 The url address of detailed explaination and features of component classes of this library are given below:
