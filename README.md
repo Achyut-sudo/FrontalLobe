@@ -19,7 +19,7 @@ on testing this library on [UCI's iris dataset](https://archive.ics.uci.edu/ml/d
 The model used, contains a hidden layer of 3 neurons with one bias so does the input layer of 5 input neurons whereas the output layer contains 3 neurons  corresponding to each class label.Sigmoid activation function were used for the hidden layer as well as for the output layer with alpha value of 5. The [code](https://github.com/Achyut-sudo/FrontalLobe/blob/main/driver.py) used for this test only contains two lines of code for creating and training of the thus created model, excluding the import statements and the statements involving the loading of data set into the scope. The [binary image](https://github.com/Achyut-sudo/FrontalLobe/blob/main/nnTrue) file of the created model is also added.
 
 
-![](https://github.com/Achyut-sudo/FrontalLobe/blob/main/IrisTest.jpg)
+![](https://github.com/Achyut-sudo/FrontalLobe/blob/main/irisTest2.jpg)
 
 
 
